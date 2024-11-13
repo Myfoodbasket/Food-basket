@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Food Basket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .basket {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #000;
+            margin-top: 20px;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+        }
+        .item {
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e6ffe6;
+            cursor: grab;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Available Fruits and Vegetables</h3>
+        <div id="items">
+            <div class="item" draggable="true">Onion</div>
+            <div class="item" draggable="true">Corn</div>
+            <div class="item" draggable="true">Kiwi Fruit</div>
+            <div class="item" draggable="true">Orange</div>
+            <div class="item" draggable="true">Pineapple</div>
+            <div class="item" draggable="true">Banana</div>
+            <div class="item" draggable="true">Cabbage</div>
+            <div class="item" draggable="true">Mushroom</div>
+            <div class="item" draggable="true">Strawberry</div>
+            <div class="item" draggable="true">Potato</div>
+            <div class="item" draggable="true">Cucumber</div>
+            <div class="item" draggable="true">Apple</div>
+            <div class="item" draggable="true">Peach</div>
+            <div class="item" draggable="true">Melon</div>
+            <div class="item" draggable="true">Carrot</div>
+            <div class="item" draggable="true">Tomato</div>
+            <div class="item" draggable="true">Cherry</div>
+            <div class="item" draggable="true">Green Pepper</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h3>Food Basket</h3>
+        <div id="basket" class="basket"></div>
+    </div>
+
+    <script>
+        const items = document.querySelectorAll('.item');
+        const basket = document.getElementById('basket');
+
+        items.forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text', e.target.innerText);
+            });
+        });
+
+        basket.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        basket.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const data = e.dataTransfer.getData('text');
+            const newItem = document.createElement('div');
+            newItem.className = 'item';
+            newItem.textContent = data;
+            basket.appendChild(newItem);
+        });
+    </script>
+</body>
+</html>
